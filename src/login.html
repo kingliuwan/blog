@@ -29,7 +29,7 @@
 
             </div>
             <div class="col-sm-5">
-                <form method="post" action="admin.html">
+                <form>
                     <h4 class="no-margins">登录：</h4>
                     <p class="m-t-md"><span>刘万</span>&nbsp;的博客管理系统</p>
                     <input type="text" class="form-control uname" placeholder="用户名" />
@@ -48,3 +48,28 @@
 </body>
 
 </html>
+<script src="js/jquery.js"></script>
+<script>
+    $(function () {
+        $(".btn").on("click",function () {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5656/login",
+                data: {
+                    username: $(".uname").val(),
+                    password: $(".pword").val()
+                }
+            }).then(function (res) {
+                console.log(res[0].u_id);
+                if(res[0].u_id==1){
+                    alert("登录成功");
+                    window.location.assign("admin.html");
+                }else {
+                    alert("账号或密码错误");
+                }
+            })
+            return false
+        })
+
+    })
+</script>
