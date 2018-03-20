@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="css/modify_information.css"/>
+	</head>
+	<body>
+		<div class="content">
+			<h2>基本信息</h2>
+<!--更换头像-->
+			<div class="upfile">
+				<div class="now_img">
+						<img width="100" height="100" src="img/a1.jpg" alt="">		
+				</div>
+				<div class="imgjs">						
+					<form class="am-form" id="uploadForm">
+						<div class="am-form-group"><br />
+							<input style="margin-left: 150px;" type="file" id="user-pic" name="logo" />	<br /><br />
+							<button type="button" onclick="doUpload()">保存</button>
+						</div>
+					</form>
+				</div>
+			</div>
+<!--修改资料-->
+			<form id="myform" class="xx">
+				<p>
+					<span>姓名</span> <input name="m_name" />
+				</p>				
+				<p>
+					<span>邮箱</span> <input name="m_email" />					
+				</p>
+				<p>					
+					<span>手机</span> <input name="m_tel" />				
+				</p>
+				<p>					
+					<span>电话</span> <input name="m_phone" />					
+				</p>
+				<p>					
+					<span>公司</span> <input name="m_company" />					
+				</p>
+				<p>
+					<span>部门</span> <input name="m_department" />					
+				</p>
+				<p>
+					<span>备注</span> <input name="m_Remarks" />					
+				</p>
+				<p class="last">
+					<span>个人简介</span> <textarea></textarea>	
+				</p>
+				<p style="clear: both;">
+					<button type="submit">确定</button>
+					<button type="reset">重置</button>
+				</p>
+				
+			</form>
+		</div>
+	</body>
+</html>
