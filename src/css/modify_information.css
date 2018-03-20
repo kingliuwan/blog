@@ -34,6 +34,7 @@ h2{
 	height: 30px;
 	border: solid 1px #E8E8E8;
 	margin-bottom: 20px;
+	color: #888888;
 }
 [type="submit"],[type="reset"],[type="button"]{
 	width: 100px;
@@ -50,7 +51,7 @@ textarea{
 	margin-bottom: 20px;
 	float: left;
 	margin-left: 20px;
-	
+	color: #888888;
 }
 .last span{
 	display: inline-block;

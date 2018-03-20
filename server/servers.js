@@ -19,8 +19,6 @@ var connection = mysql.createConnection({
 connection.connect();
 
 app.post('/login',function (req,res) {
-    console.log(req.body.username);
-    console.log(req.body.password);
     res.append("Access-Control-Allow-Origin", "*")
     connection.query("select * from login where u_name='"+req.body.username+"'and u_pwd='"+req.body.password+"'",function (error, result, fields) {
             // if(result==true){
@@ -30,5 +28,34 @@ app.post('/login',function (req,res) {
     })
 })
 
+app.post('/comment',function (req,res) {
+    res.append("Access-Control-Allow-Origin", "*")
+    connection.query()
+})
+
+app.post('/person',function (req,res) {
+    res.append("Access-Control-Allow-Origin", "*")
+    connection.query("select * from person",function (error, result, fields) {
+        res.send(result)
+    })
+})
+app.post('/updataperson',function (req,res) {
+    res.append("Access-Control-Allow-Origin", "*")
+    console.log(req.body);
+    connection.query("update person set ? where p_id=1",{
+        name:req.body.m_name,
+        email:req.body.m_email,
+        tel:req.body.m_tel,
+        phone:req.body.m_phone,
+        company:req.body.m_company,
+        department:req.body.m_department,
+        remarks:req.body.m_Remarks,
+        profile:req.body.profile
+    },function (error, result, fields) {
+        if(error)
+            throw error
+        res.send("修改成功")
+    })
+})
 app.listen(5656)
 console.log("开启服务器");

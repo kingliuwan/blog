@@ -1,0 +1,129 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+ul,ol{list-style:none;}
+a{text-decoration:none;}
+.main{
+    margin: 0 auto;
+    width: 888px;
+}
+.body{
+    margin-top: 25px;
+}
+.header{
+    width: 888px;
+    height: 66px;
+}
+h3{
+    font-weight: normal;
+    color: #888888;
+    float: left;
+}
+.inp{
+    float: right;
+    width: 288px;
+    height: 36px;
+}
+.inp input{
+    width: 230px;
+    height: 34px;
+    outline: none;
+    float: left;
+    border:1px solid #c4c4c4;
+    line-height:34px;
+    font-size: 18px;
+    color: #888888;
+}
+.inp button{
+    width: 50px;
+    height: 36px;
+    outline: none;
+    background: #0094ff;
+    float: left;
+    border:0;
+    color: #fff;
+}
+table{
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+table thead{
+    background: #ffffff;
+}
+table thead tr{
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 25px;
+    text-align: left;
+    color: #888888;
+}
+table thead tr th{
+    border: 1px solid #c4c4c4;
+    padding: 0 5px;
+}
+table thead tr th:nth-child(1){
+    width: 15px;
+}
+table thead tr th:nth-child(2){
+    width: 173px;
+}
+table thead tr th:nth-child(3){
+    width: 470px;
+}
+table thead tr th:nth-child(4){
+    width: 90px;
+}
+table thead tr th:nth-child(5){
+    width: 90px;
+}
+table tbody tr{
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 22px;
+    text-align: left;
+    color: #888888;
+}
+table tbody tr td{
+    border: 1px solid #c4c4c4;
+    padding: 0 5px;
+}
+table tbody tr td:nth-child(1){
+    width: 15px;
+}
+table tbody tr td:nth-child(2){
+    width: 173px;
+}
+table tbody tr td:nth-child(3){
+    width: 470px;
+}
+table tbody tr td:nth-child(4){
+    width: 90px;
+}
+table tbody tr td:nth-child(5){
+    width: 90px;
+}
+img{
+    float: left;
+    display: block;
+    border: 1px solid #c4c4c4;
+    height: 50px;
+    width: 50px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-right: 2px;
+}
+.left{
+ float: left;
+}
+
+.btn{
+    float: right;
+    border: none;
+    outline: none;
+    width: 88px;
+    height: 33px;
+    background: #ff1039;
+    color: #ffffff;
+    margin-top: 8px;
+}

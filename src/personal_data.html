@@ -14,7 +14,7 @@
 			</div>
 			<div class="right">
 				<table>
-					<tr>
+<!--					<tr>
 						<td>姓名</td>
 						<td>汪美杰</td>
 					</tr>
@@ -45,7 +45,7 @@
 					<tr>
 						<td>个人简介</td>
 						<td>爱 好 特喜爱足球、音乐，也喜欢读书、书法、旅游、游戏、时政、以及各项运动等 个人简介  我性格开朗、思维活跃；待人真诚、可靠，做事有责任心，条理性强；易与人相处，对工作充满热情,任劳任怨,勤奋好学,敢挑重担，具有很强的团队精神和协调能力。</td>
-					</tr>
+					</tr>-->
 				</table>
 			</div>
 			
@@ -53,3 +53,24 @@
 	</body>
 
 </html>
+<script src="js/jquery.js"></script>
+<script>
+	$(function () {
+		$.ajax({
+            type: "POST",
+            url: "http://localhost:5656/person",
+		}).then(function (res) {
+            console.log(res[0]);
+           var str="";
+        	str+="<tr><td>姓名</td><td>"+res[0].name+"</td></tr>";
+            str+="<tr><td>邮箱</td><td>"+res[0].email+"</td></tr>";
+            str+="<tr><td>手机</td><td>"+res[0].tel+"</td></tr>";
+            str+="<tr><td>电话</td><td>"+res[0].phone+"</td></tr>";
+            str+=" <tr><td>公司</td><td>"+res[0].company+"</td></tr>";
+            str+="<tr><td>部门</td> <td>"+res[0].department+"</td></tr>";
+            str+="<tr><td>备注</td><td>"+res[0].remarks+"</td></tr>";
+            str+="<tr><td>个人简介</td><td>"+res[0].profile+"</td> </tr>";
+			$("table").html(str);
+        })
+    })
+</script>

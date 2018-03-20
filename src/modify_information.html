@@ -46,10 +46,10 @@
 					<span>备注</span> <input name="m_Remarks" />					
 				</p>
 				<p class="last">
-					<span>个人简介</span> <textarea></textarea>	
+					<span>个人简介</span> <textarea name="profile"></textarea>
 				</p>
 				<p style="clear: both;">
-					<button type="submit">确定</button>
+					<button type="submit" id="bt1">确定</button>
 					<button type="reset">重置</button>
 				</p>
 				
@@ -57,3 +57,44 @@
 		</div>
 	</body>
 </html>
+
+<script src="js/jquery.js"></script>
+<script>
+
+	$(function () {
+		$.ajax({
+            type: "POST",
+            url: "http://localhost:5656/person",
+		}).then(function (res) {
+            $('input[name="m_name"]').val(res[0].name);
+            $('input[name="m_email"]').val(res[0].email);
+            $('input[name="m_tel"]').val(res[0].tel);
+            $('input[name="m_phone"]').val(res[0].phone);
+            $('input[name="m_company"]').val(res[0].company);
+            $('input[name="m_department"]').val(res[0].department);
+            $('input[name="m_Remarks"]').val(res[0].remarks);
+            $('textarea[name="profile"]').val(res[0].profile);
+        })
+		
+		$("#bt1").on("click",function () {
+            console.log($('textarea[name="profile"]').val());
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5656/updataperson",
+				data:{
+                    m_name:$('input[name="m_name"]').val(),
+                    m_email:$('input[name="m_email"]').val(),
+                    m_tel:$('input[name="m_tel"]').val(),
+                    m_phone:$('input[name="m_phone"]').val(),
+                    m_company:$('input[name="m_company"]').val(),
+                    m_department:$('input[name="m_department"]').val(),
+                    m_Remarks:$('input[name="m_Remarks"]').val(),
+                    profile:$('textarea[name="profile"]').val(),
+				}
+			}).then(function (res) {
+                console.log(res);
+            })
+			return false;
+        })
+    })
+</script>
