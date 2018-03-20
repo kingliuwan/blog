@@ -362,6 +362,7 @@
 .fa-video-camera:before {
   content: "\f03d";
 }
+.fa-columns:before,
 .fa-photo:before,
 .fa-image:before,
 .fa-picture-o:before {
@@ -552,7 +553,7 @@
 }
 .fa-bar-chart-o:before,
 .fa-bar-chart:before {
-  content: "\f080";
+  content: "\f044";
 }
 .fa-twitter-square:before {
   content: "\f081";
@@ -784,7 +785,7 @@
   content: "\f0da";
 }
 .fa-columns:before {
-  content: "\f0db";
+  content: "\f03e";
 }
 .fa-unsorted:before,
 .fa-sort:before {
@@ -799,7 +800,7 @@
   content: "\f0de";
 }
 .fa-envelope:before {
-  content: "\f0e0";
+  content: "\f108";
 }
 .fa-linkedin:before {
   content: "\f0e1";
