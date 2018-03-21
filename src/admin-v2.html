@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="./css/public.css">
+    <link rel="stylesheet" href="./css/admin-v2.css">
+</head>
+
+<body>
+    <div class="top-wrapper">
+        <h3 style="color:#4f5357;font-size: 24px;">文章
+            <span>写文章</span>
+        </h3>
+        <div class="article-search">
+            <div class="article-search-left fl">
+                <span>全部(
+                    <i></i>)</span>
+                <span style="color: #9eddf1;">已发布(
+                    <i></i>)</span>
+            </div>
+            <div class="article-search-right fr">
+                <input type="text" id="search">
+                <button id="search-article">搜索文章</button>
+            </div>
+        </div>
+        <div class="handle">
+            <select name="" id="handle-xiugai" value="">
+                <option value="">批量操作</option>
+                <option value="">编辑</option>
+                <option value="">移至回收站</option>
+            </select>
+            <button id="handle-xiugai-v">应用</button>
+            <select name="" id="handle-time">
+                <option value="">全部日期</option>
+                <option value="">2018年3月</option>
+
+            </select>
+            <select name="" id="handle-fenlei">
+                <option value="">所有项目分类</option>
+                <option value="">日记</option>
+                <option value="">心情</option>
+                <option value="">想法</option>
+
+            </select>
+            <button id="handle-fenlei-v">筛选</button>
+        </div>
+        <div class="article-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <input type="checkbox">
+                            <span style="color: #0073aa;">标题</span>
+                        </th>
+                        <th>作者</th>
+                        <th>分类目录</th>
+                        <th>标签</th>
+                        <th>评论</th>
+                        <th>
+                            <span style="color: #0073aa;">日期</span>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+
+
+
+                </tbody>
+
+
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>
+<script src="./js/jquery.js"></script>
+<script>
+    $(function () {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:5656/admin-v2",
+        }).then(function (res) {
+            console.log(res);
+            for (var i = 0; i < res.length; i++) {
+                var str = `  <tr>
+                        <td>
+                            <input type="checkbox">
+                            <span style="color:#0073aa; ">${res[i].article_title}</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">${res[i].a_id}</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">${res[i].article_class}</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">mmp</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">mmp</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">${res[i].article_time}</span>
+                        </td>
+                    </tr> `;
+                $("tbody").html($("tbody").html() + str);
+            }
+        })
+    })
+</script>

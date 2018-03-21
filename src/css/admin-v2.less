@@ -1,0 +1,107 @@
+.top-wrapper{
+    margin-top: 10px;
+    padding:0 20px;
+  
+    h3{
+        padding: 20px 0;
+        span{
+            display: inline-block;
+            color: #009cd2;
+            font-size: 15px;
+            padding: 6px;
+            background: #f7f7f7;
+            border: 1px solid #ccc;
+            border-radius: 2px;
+            margin-left: 20px;
+        }
+    }
+    .article-search{
+        overflow: hidden;      
+        margin-bottom: 10px;
+        min-width: 640px;
+        .article-search-right{
+            #search{
+                background: #fff;
+                border: 1px solid #ccc;
+                height: 24px;
+                margin-right: 10px;
+                position: relative;
+                top: -1px;
+            }
+            #search-article{
+                padding: 4px;
+            }
+        }
+    }
+    select{
+        height: 28px;
+        width: 98px;
+    }
+    button{
+        padding: 5px 6px;
+        background: #f7f7f7;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+    .handle{
+        overflow: hidden;
+        min-width: 450px;
+        button,select{
+            float: left;
+            margin-right: 10px;
+        }
+        #handle-fenlei{
+            width: 110px;
+        }
+       
+    }
+    .article-list{
+        table{
+            margin-top: 10px;
+            min-width: 1000px;
+            border: 1px solid #ccc;
+            thead{
+                padding: 6px;
+                border: 1px solid #ccc;
+                border-radius: 1px;
+               background: #fff;
+                width: 100%;
+                tr{
+                   background:#32373c; 
+                    th{
+                        border-bottom: 1px solid #ccc;
+                        color: #fff;
+                    }
+                }
+            }
+            tbody{
+                overflow: hidden;
+               tr:nth-child(2n){
+                   background: #f9f9f9;
+               }
+               tr:nth-child(2n+1){
+                background: #fff;
+            }
+            }
+           tbody,thead{
+            tr{
+                
+                th,td{
+                    width: 150px;
+                    text-align: left;
+                    padding: 10px;
+                }
+                th:nth-child(1){
+                    width: 250px;
+                   
+                }
+                td{
+                    padding: 10px 10px 30px 10px;
+                }
+
+            }
+           }
+
+        }       
+    }
+}

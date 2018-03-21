@@ -1,0 +1,99 @@
+.top-wrapper {
+  margin-top: 10px;
+  padding: 0 20px;
+}
+.top-wrapper h3 {
+  padding: 20px 0;
+}
+.top-wrapper h3 span {
+  display: inline-block;
+  color: #009cd2;
+  font-size: 15px;
+  padding: 6px;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  margin-left: 20px;
+}
+.top-wrapper .article-search {
+  overflow: hidden;
+  margin-bottom: 10px;
+  min-width: 640px;
+}
+.top-wrapper .article-search .article-search-right #search {
+  background: #fff;
+  border: 1px solid #ccc;
+  height: 24px;
+  margin-right: 10px;
+  position: relative;
+  top: -1px;
+}
+.top-wrapper .article-search .article-search-right #search-article {
+  padding: 4px;
+}
+.top-wrapper select {
+  height: 28px;
+  width: 98px;
+}
+.top-wrapper button {
+  padding: 5px 6px;
+  background: #f7f7f7;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+.top-wrapper .handle {
+  overflow: hidden;
+  min-width: 450px;
+}
+.top-wrapper .handle button,
+.top-wrapper .handle select {
+  float: left;
+  margin-right: 10px;
+}
+.top-wrapper .handle #handle-fenlei {
+  width: 110px;
+}
+.top-wrapper .article-list table {
+  margin-top: 10px;
+  min-width: 1000px;
+  border: 1px solid #ccc;
+}
+.top-wrapper .article-list table thead {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 1px;
+  background: #fff;
+  width: 100%;
+}
+.top-wrapper .article-list table thead tr {
+  background: #32373c;
+}
+.top-wrapper .article-list table thead tr th {
+  border-bottom: 1px solid #ccc;
+  color: #fff;
+}
+.top-wrapper .article-list table tbody {
+  overflow: hidden;
+}
+.top-wrapper .article-list table tbody tr:nth-child(2n) {
+  background: #f9f9f9;
+}
+.top-wrapper .article-list table tbody tr:nth-child(2n+1) {
+  background: #fff;
+}
+.top-wrapper .article-list table tbody tr th,
+.top-wrapper .article-list table thead tr th,
+.top-wrapper .article-list table tbody tr td,
+.top-wrapper .article-list table thead tr td {
+  width: 150px;
+  text-align: left;
+  padding: 10px;
+}
+.top-wrapper .article-list table tbody tr th:nth-child(1),
+.top-wrapper .article-list table thead tr th:nth-child(1) {
+  width: 250px;
+}
+.top-wrapper .article-list table tbody tr td,
+.top-wrapper .article-list table thead tr td {
+  padding: 10px 10px 30px 10px;
+}

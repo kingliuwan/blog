@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="./css/admin-v1.css">
+    <style>
+        #baocun {
+            float: left;
+        }
+
+        #yulan {
+            float: right;
+        }
+
+        .bianji {
+            color:#999;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper" style="width: 100%;height: 100%;min-width: 1170px;">
+        <div class="wrapper-left" style="width: 70%;height: 100%;float: left;min-width: 800px;">
+            <div id="" style="margin-bottom: 50px;margin-left: 40px;">
+                <h1 style="color: #4f5357;">输入标题内容</h1>
+                <input type="text" name="" id="title" placeholder="大爷,请输入标题" style="font-size: 24px; display: block;height: 40px;width:93%;border-radius: 5px;"
+                />
+            </div>
+            <div id="div3" style="width: 90%;margin-left: 40px;background: #ffffff; ">
+
+            </div>
+        </div>
+        <div class="wrapper-right" style="width: 29%;height: 100%;float: right;margin-top: 30px;">
+            <div class="side-right" style="width: 70%;border: 1px solid #ccc;background: #ffffff;padding: 10px;margin-bottom: 20px;">
+                <h4 style="height: 30px;line-height: 30px; border-bottom: 1px solid #ccc">发布</h4>
+                <div class="side-right-middle" style="overflow: hidden;">
+                    <button id="baocun">保存草稿</button>
+                    <button id="yulan">预览</button>
+                </div>
+                <div class="side-right-bottom">
+                    <p>状态:草稿
+                        <strong class="bianji">编辑</strong>
+                    </p>
+                    <p>公开度:公开
+                        <strong class="bianji">编辑</strong>
+                    </p>
+                    <p>立即发布
+                        <strong class="bianji">编辑</strong>
+                    </p>
+                </div>
+                <div class="side-right-footer" style="height: 40px; overflow: hidden;background: #cacaca;padding: 6px;border-radius: 4px;">
+                    <button style="color: #ffffff;padding: 8px;float: right;border-radius: 6px;border: 0;background: #999;position: relative;top: 3px;" id="btn">发布</button>
+                </div>
+            </div>
+            <div class="side-middle"  style="width: 70%;border: 1px solid #ccc;background: #ffffff;padding: 10px;margin-bottom: 20px;overflow: hidden;">
+                    <h4 style="height: 30px;line-height: 30px; border-bottom: 1px solid #ccc">分类项目</h4>
+                  <div class="side-middle-left" style="float: left;">
+                        <select name="" id="fenlei" style="height: 26px;">
+                                <option>日记</option>
+                                <option>心情</option>
+                                <option>想法</option>
+                            </select>
+                  </div>
+                  <div class="side-middle-right" style="float: right;">
+                      <img src="./img/a2.jpg" alt="家有猫咪初养成" style="height: 200px;width: 200px;">
+                  </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="./wangEditor/release/wangEditor.min.js"></script>
+<script src="./js/jquery.js"></script>
+</html>
+<script>
+    var E = window.wangEditor;
+    var editor2 = new E("#div3");
+    editor2.customConfig.colors = [
+        '#000000',
+        '#eeece0',
+        '#1c487f',
+        '#4d80bf',
+        '#c24f4a',
+        '#8baa4a',
+        '#7b5ba1',
+        '#46acc8',
+        '#f9963b',
+        '#ffffff'
+    ];
+    // 隐藏“网络图片”tab
+    //  editor2.customConfig.showLinkImg = false;
+    editor2.create();
+   $(function(){
+       $("#btn").on("click",function(){
+           var date = new Date();
+           console.log(date);
+           $.ajax({
+               type:"post",
+               url:"http://localhost:5656/article",
+               async:true,
+               data:{
+                   article_title:$("#title").val(),
+                   article_class:$("#fenlei").val(),
+                   article_content:editor2.txt.html(),
+                   article_time:date
+               }
+           }).done((data)=>{
+               console.log(data);
+           })
+           
+       })   
+   })
+      
+   
+</script>

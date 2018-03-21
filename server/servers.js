@@ -57,5 +57,34 @@ app.post('/updataperson',function (req,res) {
         res.send("修改成功")
     })
 })
+//将文章信息录入数据库
+app.post("/article", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("insert into article set ?", {
+        article_title: req.body.article_title,
+        article_content: req.body.article_content,
+        article_class: req.body.article_class,
+        article_time: req.body.article_time
+    }, function (err, result) {
+        if (err) {
+            console.log("插入失败");
+        } else {
+            console.log('插入成功');
+        }
+    })
+})
+
+
+//页面刷新后,获取文章信息生成列表
+app.post("/admin-v2", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("select * from article", function (error, results, fields) {
+        // if(error) throw error;
+        // var mmp = JSON.stringify(results);
+        // console.log(results);
+        res.send(results);
+    })
+})
+
 app.listen(5656)
 console.log("开启服务器");
