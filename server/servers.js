@@ -17,7 +17,7 @@ var connection = mysql.createConnection({
     database: 'blog'
 });
 connection.connect();
-
+/*登录后台*/
 app.post('/login',function (req,res) {
     res.append("Access-Control-Allow-Origin", "*")
     connection.query("select * from login where u_name='"+req.body.username+"'and u_pwd='"+req.body.password+"'",function (error, result, fields) {
@@ -27,18 +27,19 @@ app.post('/login',function (req,res) {
         res.send(result);
     })
 })
-
+/*评论后台*/
 app.post('/comment',function (req,res) {
     res.append("Access-Control-Allow-Origin", "*")
     connection.query()
 })
-
+/*个人资料后台*/
 app.post('/person',function (req,res) {
     res.append("Access-Control-Allow-Origin", "*")
     connection.query("select * from person",function (error, result, fields) {
         res.send(result)
     })
 })
+/*修改个人资料的后台*/
 app.post('/updataperson',function (req,res) {
     res.append("Access-Control-Allow-Origin", "*")
     console.log(req.body);

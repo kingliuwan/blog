@@ -57,9 +57,10 @@ table thead tr{
     line-height: 25px;
     text-align: left;
     color: #888888;
+    border: 1px solid #c4c4c4;
 }
 table thead tr th{
-    border: 1px solid #c4c4c4;
+
     padding: 0 5px;
 }
 table thead tr th:nth-child(1){
@@ -83,9 +84,10 @@ table tbody tr{
     line-height: 22px;
     text-align: left;
     color: #888888;
+    border: 1px solid #c4c4c4;
 }
 table tbody tr td{
-    border: 1px solid #c4c4c4;
+
     padding: 0 5px;
 }
 table tbody tr td:nth-child(1){
