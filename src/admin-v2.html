@@ -65,37 +65,44 @@
                     </tr>
                 </thead>
                 <tbody>
-
-
-
                 </tbody>
 
-
             </table>
+
         </div>
     </div>
 </body>
 
 </html>
 <script src="./js/jquery.js"></script>
+<script src="./js/reback.js"></script>
 <script>
     $(function () {
         $.ajax({
             type: "POST",
             url: "http://localhost:5656/admin-v2",
         }).then(function (res) {
-            console.log(res);
-            for (var i = 0; i < res.length; i++) {
+            var arr = [];
+            //增加了一个判断,判断article_status=1的文章才可以写入
+            for (var j = 0; j < res.length; j++) {
+                if (res[j].article_status === "1") {
+                    arr.push(res[j]);
+                }
+            }
+            for (var i = 0; i < arr.length; i++) {
                 var str = `  <tr>
-                        <td>
+                        <td style="position:relative;">
                             <input type="checkbox">
-                            <span style="color:#0073aa; ">${res[i].article_title}</span>
+                            <span id="article_title" style="color:#0073aa; ">${arr[i].article_title}</span>
+                            <div class="operate"  style="position:absolute;display:none;bottom:3px;">
+                                <button class="del" style="color:#0073aa;padding: 5px 10px;margin-top: 10px;border: none;background:#f3f3f4;">删除</button>
+            <button id="rewrite" style="color:#0073aa;padding: 5px 10px;margin-top: 10px;border: none;background:#f3f3f4;">编辑</button></div>
                         </td>
                         <td>
-                            <span style="color:#0073aa;">${res[i].a_id}</span>
+                            <span style="color:#0073aa;">${arr[i].a_id}</span>
                         </td>
                         <td>
-                            <span style="color:#0073aa;">${res[i].article_class}</span>
+                            <span style="color:#0073aa;">${arr[i].article_class}</span>
                         </td>
                         <td>
                             <span style="color:#0073aa;">mmp</span>
@@ -104,11 +111,37 @@
                             <span style="color:#0073aa;">mmp</span>
                         </td>
                         <td>
-                            <span style="color:#0073aa;">${res[i].article_time}</span>
+                            <span style="color:#0073aa;">${arr[i].article_time}</span>
                         </td>
                     </tr> `;
                 $("tbody").html($("tbody").html() + str);
+                $(".operate").siblings("span").on("mouseenter", function () {
+                    $(this).siblings(".operate").show(200);
+                    $(this).siblings(".operate").on("mouseenter", function () {
+                        $(this).show();
+                    }).on("mouseleave", function () {
+                        $(this).hide();
+                    })
+
+                }).on("mouseleave", function () {
+                    $(this).siblings(".operate").hide();
+                })
+
             }
+            var $del = $(".del");
+
+            $(".article-list").on("click", function (e) {
+
+                var params = $(e.target).parents("td").find("span").text();
+                // var params = $(this).children("span").text();
+                //console.log(params); 
+                del(params);
+            })
+            $(".del").on("click", function () {
+                $(this).parents("tr").remove();
+            })
         })
+
+
     })
 </script>

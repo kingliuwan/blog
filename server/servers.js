@@ -66,7 +66,8 @@ app.post("/article", function (req, res) {
         article_title: req.body.article_title,
         article_content: req.body.article_content,
         article_class: req.body.article_class,
-        article_time: req.body.article_time
+        article_time: req.body.article_time,
+        article_status: req.body.article_status
     }, function (err, result) {
         if (err) {
             console.log("插入失败");
@@ -76,18 +77,16 @@ app.post("/article", function (req, res) {
     })
 })
 
-
 //页面刷新后,获取文章信息生成列表
 app.post("/admin-v2", function (req, res) {
     res.append("Access-Control-Allow-Origin", "*");
-    connection.query("select * from article", function (error, results, fields) {
+    connection.query("select * from article where article_status='1'", function (error, results, fields) {
         // if(error) throw error;
         // var mmp = JSON.stringify(results);
         // console.log(results);
         res.send(results);
     })
 })
-
 
 var src = ''
 var storage = multer.diskStorage({
@@ -142,7 +141,50 @@ app.post('/removeimg', upload.any(),function(req, res){
         res.send("成功")
     })
 })
+//获取status状态为0的文件
+app.post("/admin-v3", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("select * from article where article_status='0'", function (error, results, fields) {
+        // if(error) throw error;
+        // var mmp = JSON.stringify(results);
+        // console.log(results);
+        res.send(results);
+    })
+})
+//reback操作将状态为0的文章变为状态1,将文章的显示于所有文章中
+app.post("/reback", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    //更新文章的状态
+    connection.query("update article set ?  where article_title="+"'"+req.body.article_title+"'",{
+        article_status:"1"
+    } ,function (error, results, fields) {
+        // if(error) throw error;
+        // var mmp = JSON.stringify(results);
+        // console.log(results);
+        res.send(results);
+    })
+})
+//修改状态,将状态为1的文章变为状态0
+app.post("/del", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("update article set ? where article_title="+"'"+req.body.article_title+"'",{
+        article_status:0
+    }, function (error, results, fields) {
+            // res.send(results)
+            res.send(results);
+        })
+})
 
+
+
+//删除数据库中不需要的表的操作,永远也看不到了
+app.post("/remove", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("delete from article where article_title="+"'"+req.body.article_title+"'", function (error, results, fields) {
+        console.log(results);
+        res.send(results);
+    })
+})
 
 app.listen(5656)
 console.log("开启服务器");

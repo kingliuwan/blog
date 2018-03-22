@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="./css/admin-v2.css">
+</head>
+
+<body>
+    <div class="top-wrapper" style="padding: 20px;">
+        <div class="top-wrapper-top" style="margin-bottom: 13px;">
+            <h3 style="color:#0f193c;padding: 10px;">草稿箱</h1>
+                <p style="background:#f5f8fd;color: #a42725;padding: 5px; ">!!!如果你执行这次删除操作,就真的再也见不到了</p>
+        </div>
+        <div class="rubbish-wrapper-middle">
+            <p style="padding: 10px;border: 1px solid #cccccc;background: #ffffff;">
+                <input type="checkbox">
+                <button style="margin-left: 10px;">删除</button>
+            </p>
+        </div>
+        <div class="article-list">
+            <table>
+                <thead>
+                    <tr>
+                        <th>
+                            <span style="color: #0073aa;">标题</span>
+                        </th>
+                        <th>作者</th>
+                        <th>分类目录</th>
+                        <th>标签</th>
+                        <th>发布日期</th>
+                        <th>
+                            <span style="color: #0073aa;">操作</span>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</body>
+<script src="js/jquery.js"></script>
+<script src="./js/reback.js"></script>
+<script>
+    $(function () {
+        $.ajax({
+            type: "post",
+            url: "http://localhost:5656/admin-v3"
+        }).then(function (res) {
+            for (var i = 0; i < res.length; i++) {
+                var str = `  <tr>
+                        <td>
+                            <input type="checkbox">
+                            <span style="color:#0073aa;" id="article_title">${res[i].article_title}</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">${res[i].a_id}</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">${res[i].article_class}</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">mmp</span>
+                        </td>
+                        <td>
+                            <span style="color:#0073aa;">${res[i].article_time}</span>
+                        </td>
+                        <td>
+                            <div style="color:#0073aa;">
+                                <a class="fl" class="remove">删除</a>
+                                <a class="fr" onclick="reback()" style="display:block;padding:8px 5px 0 0;" >离开垃圾箱</a>
+                            </div>
+                        </td>
+                    </tr> `;
+                $("tbody").html($("tbody").html() + str);
+
+            }
+            
+            $(".article-list").on("click", function (e) {
+                console.log(e.target);              
+                var params = $(e.target).parents("div").parents("td").parents("tr").find("#article_title").text();
+               // console.log(params);
+                // remove(params);
+                $(e.target).parents("tr").remove();
+                if($(e.target).text()==="离开垃圾箱"){
+                    reback(params);
+                }
+            })
+           
+        })
+
+    })
+
+</script>
+
+</html>
