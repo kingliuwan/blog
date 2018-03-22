@@ -4,65 +4,76 @@
     <meta charset="UTF-8">
     <title>瀑布流照片墙</title>
     <link rel="stylesheet" href="css/photoWall.css">
+    <script src="../server/servers.js"></script>
 </head>
 <body>
 <h2>照片管理</h2>
-<div id="masonry" class="container-fluid">
-    <div class="box"><div class="del">删除</div><img src="img/a1.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a2.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a3.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a4.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a5.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a1.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a2.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a3.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a4.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a5.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/p1.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/p2.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a2.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a3.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a4.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a5.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/p1.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/p2.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a2.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a3.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a4.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/a5.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/p1.jpg"></div>
-    <div class="box"><div class="del">删除</div><img src="img/p2.jpg"></div>
-</div>
+<div id="masonry" class="container-fluid"></div>
 </body>
 </html>
 <script src="js/jquery.js"></script>
 <script src="js/masonry.pkgd.min.js"></script>
-<script src= "https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
+<script src="https://npmcdn.com/imagesloaded@4.1/imagesloaded.pkgd.js"></script>
 <script>
-    $(function() {
+    $(function(){
+        $.ajax({
+            url : 'http://localhost:5656/getimages',
+            type : 'POST',
+            success : function(data){
+                var str = JSON.parse(data);
+                console.log(str);
+                for(var i = 0; i < str.length; i++){
+                    var ID = str[i].id;
+                    if(str[i].u_class == 1){
+                        var Div1 = $('<div class="box"></div>');
+                        var Div2 = $('<div class="del">删除</div>');
+                        var imgObj = $("<img class='imgId' id=" + ID + ">").attr("src", "img/bgimg/" + str[i].u_path);
+
+                        var oImg = $('#masonry')
+                        Div2.appendTo(Div1)
+                        imgObj.appendTo(Div1)
+                        Div1.appendTo(oImg)
+                    }
+                }
+}
+        })
         var $container = $('#masonry');
-            $container.masonry({
-                columnWidth: 200,
-                itemSelector: '.box',
-                gutter: 8,
-                isAnimated: true,
-            });
-            $(document).on("mouseover",".box",function () {
-                $(this).find("div").stop().show();
-            })
-        $(document).on("mouseout",".box",function () {
+        $container.masonry({
+            columnWidth : 200,
+            itemSelector : '.box',
+            gutter : 8,
+            isAnimated : true,
+        });
+        $(document).on("mouseover", ".box", function(){
+            $(this).find("div").stop().show();
+        })
+        $(document).on("mouseout", ".box", function(){
             $(this).find("div").stop().hide();
         })
-        $(document).on("click",".del",function () {
+        $(document).on("click", ".del", function(){
             $(this).parent().remove();
+            var $id = $(this).siblings().attr("id");
+            console.log($id);
+            $.ajax({
+                url : 'http://localhost:5656/removeimg',
+                type : 'POST',
+                data : {
+                    id : $id
+                },
+                success : function(data){
+                    console.log(data);
+                }
+            })
+
+
             var $container = $('#masonry');
             $container.masonry({
-                itemSelector: '.box',
-                gutter: 8,
-                isAnimated: true,
+                itemSelector : '.box',
+                gutter : 8,
+                isAnimated : true,
             });
 
-//            $container.layout();
+            //            $container.layout();
         })
     });
 

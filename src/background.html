@@ -21,7 +21,7 @@
     function doUpload(){
         $('#btn').val('继续上传')
         $.ajax({
-            url : 'http://localhost:9999/getimg',
+            url : 'http://localhost:5656/getimg',
             type : 'POST',
             cache : false, //不必须
             data : new FormData($('#uploadForm')[0]),
