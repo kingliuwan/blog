@@ -7,30 +7,37 @@
 </head>
 <body>
 <form id="uploadForm">
+
     <!--<p>指定文件名： <input type="text" name="filename" value="" /></p>-->
-    <p><input class="file" type="file" name="logo" /></p>
-    <input type="button" value="上传" onclick="doUpload()" />
+    <input class="file" type="file" name="logo"/>
+    <input id="btn" type="button" value="开始上传" onclick="doUpload()"/>
 </form>
 <div class="img-a">
-    <img id="imgId" src="" alt="">
+
 </div>
 </body>
 <script src="js/jquery.js"></script>
 <script>
-    function doUpload() {
+    function doUpload(){
+        $('#btn').val('继续上传')
         $.ajax({
-            url: 'http://localhost:8888/getimg',
-            type: 'POST',
-            cache: false, //不必须
-            data: new FormData($('#uploadForm')[0]),
-            processData: false,
-            contentType: false,
-            success: function(data) {
-
-                    $("#imgId").attr('src','img/bgimg/'+data);
-
+            url : 'http://localhost:9999/getimg',
+            type : 'POST',
+            cache : false, //不必须
+            data : new FormData($('#uploadForm')[0]),
+            processData : false,
+            contentType : false,
+            success : function(data){
+                if($('.img-a img:last').attr("src") == "img/bgimg/" + data){
+                    return false
+                } else {
+                    var oImg = $('.img-a')
+                    var imgObj = $("<img class='imgId'>").attr("src", "img/bgimg/" + data);
+                    imgObj.appendTo(oImg)
+                }
             }
         })
+
     }
 </script>
 </html>
