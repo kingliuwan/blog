@@ -7,23 +7,45 @@
 </head>
 <body>
 <div class="all">
-    <form id="uploadForm">
-        <div class="top">
-            <a href>点击选择图片<input type="file"/></a>
-        </div>
+    <form id="uploadForm" class="top">
+            <a href="javascript:void(0)">点击选择图片<input class="file" type="file" name="logo"/></a>
     </form>
     <div class="down">
         <div class="tp img-a">
 
         </div>
         <p>
-            选中 <span class=""> 4 </span> 张图片
-            <button id="start" >开始上传</button>
-            <button id="continue">继续添加</button>
+            <span class="">看看你都选了些什么照片</span>
+            <input id="btn" type="button" value="开始上传" onclick="doUpload()"/>
         </p>
     </div>
 
 </div>
 </body>
 </html>
+<script src="js/jquery.js"></script>
+<script>
+    function doUpload(){
+        $('#btn').val('继续上传')
+        $.ajax({
+            url : 'http://localhost:5656/getimg',
+            type : 'POST',
+            cache : false, //不必须
+            data : new FormData($('#uploadForm')[0]),
+            processData : false,
+            contentType : false,
+            success : function(data){
+                console.log(data);
+                if($('.img-a img:last').attr("src") == "img/bgimg/" + data){
+                    return false
+                } else {
+                    var oImg = $('.img-a')
+                    var imgObj = $("<img class='imgId'>").attr("src", "img/bgimg/" + data);
+                    imgObj.appendTo(oImg)
+                }
+            }
+        })
+
+    }
+</script>
 

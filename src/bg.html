@@ -10,12 +10,12 @@
 		<div class="bg">
 			<p>背景图</p>
 			<ul>
-				<li><img src="img/bg/bg01.jpg"/><p><a href="#">点击使用</a></p></li>
-				<li><img src="img/bg/bg02.jpg"/><p><a href="#">点击使用</a></p></li>
-				<li><img src="img/bg/bg03.jpg"/><p><a href="#">点击使用</a></p></li>
-				<li><img src="img/bg/bg04.jpg"/><p><a href="#">点击使用</a></p></li>
-				<li><img src="img/bg/bg05.jpg"/><p><a href="#">点击使用</a></p></li>
-				<li><img src="img/bg/bg06.jpg"/><p><a href="#">点击使用</a></p></li>
+				<li><img src="img/bg/bg01.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
+				<li><img src="img/bg/bg02.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
+				<li><img src="img/bg/bg03.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
+				<li><img src="img/bg/bg04.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
+				<li><img src="img/bg/bg05.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
+				<li><img src="img/bg/bg06.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
 			</ul>
 		</div>
 	</body>
@@ -27,4 +27,8 @@
 	$(".bg ul li").on("mouseleave",function(){
 		$(this).find("p").hide();
 	})
+	$(".click").on("click",function () {
+        console.log($(this).parent().siblings().attr());
+        $(this).parent().siblings("img").attr("src");
+    })
 </script>

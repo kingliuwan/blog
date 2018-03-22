@@ -1,6 +1,6 @@
-var http = require('http');
-var url = require('url');
-var querystring = require('querystring');
+const http = require('http');
+const url = require('url');
+const querystring = require('querystring');
 var mysql=require('mysql')
 var multer = require('multer');
 var express=require('express');
@@ -93,7 +93,7 @@ var src = ''
 var storage = multer.diskStorage({
     // 上传文件夹
     destination : function(req, file, cb){
-        cb(null, '../src/img/bgimg')
+        cb(null, '../img/bgimg')
     },
     // 保存的文件名字
     filename : function(req, file, cb){

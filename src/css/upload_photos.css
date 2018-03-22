@@ -6,20 +6,19 @@ html,body{
 	background: #f3f3f3;
 }
 .all{
-	width: 800px;
+	width: 865px;
 	background: #f3f3f3;
 	margin: 30px auto;
 	overflow: hidden;
 }
 .top{
-	width: 800px;
+	width: 865px;
 	height: 360px;
 	border: solid 1px #ECECEC;
 	background: #fff;
 }
 .down{
-	width: 800px;
-	height: 230px;
+	width: 865px;
 	border: solid 1px #ECECEC;	
 	margin-top: 20px;
 	background: #fff;
@@ -46,7 +45,12 @@ input[type="file"]{
 	left: 0;
 }
 .down .tp{
-	height: 160px;
+
+}
+.down .tp img{
+	height: 200px;
+	width: 200px;
+	margin: 0px 8px;
 }
 .down p{
 	height: 69px;
@@ -63,10 +67,16 @@ input[type="file"]{
 	margin-top: 20px;
 }
 
-#start{
+#btn{
 	background: #53B52E;
 	float: right;
 	margin-right: 20px;
+	width: 88px;
+	height: 33px;
+	outline: 0px;
+	border: none;
+	margin-top: 22px;
+	color: #f4f4f4;
 }
 #continue{
 	border: solid 1px #ECECEC;
