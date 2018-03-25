@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE html>
 
 <html>
 
@@ -437,31 +437,33 @@
 
 
 <body>
-
-
-
     <div id="screen"></div>
     <div id="bankImages">
-        <img alt="" src="img/1.jpg">
-       <img alt="" src="img/2.jpg">
-        <img alt="" src="img/3.jpg">
-        <img alt="" src="img/a4.jpg">
-        <img alt="" src="img/a5.jpg">
-        <img alt="" src="img/a6.jpg">
-        <img alt="" src="img/a7.jpg">
-        <img alt="" src="img/a8.jpg">
-        <img alt="" src="img/a9.jpg">
-        <img alt="" src="img/a10.jpg">
-        <img alt="" src="img/1.jpg">
-        <img alt="" src="img/2.jpg">
-        <img alt="" src="img/3.jpg">
-        <img alt="" src="img/2.jpg">
-        <img alt="" src="img/a9.jpg">
-        <img alt="" src="img/a2.jpg">
+
+
     </div>
+    <script src="./js/jquery.js"></script>
     <script type="text/javascript">/* ==== start script ==== */
-        onresize = tv.resize;
-        tv.init();</script>
+        $(function () {
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:5657/getimages",
+
+            }).then(function (res) {
+                var rimg = JSON.parse(res);
+                for (var i = 0; i < rimg.length; i++) {
+                    if (rimg[i].u_class === 1) {
+                        var str = `<img alt="" src="img/bgimg/${rimg[i].u_path}">`
+                        $("#bankImages").html($("#bankImages").html() + str);
+                    }
+
+                }
+                onresize = tv.resize;
+                tv.init();
+            })
+
+        })
+    </script>
 
 </body>
 

@@ -135,14 +135,11 @@ app.post('/getimages', upload.any(), function(req, res){
 app.post('/removeimg', upload.any(),function(req, res){
     console.log(req.body.id);
     res.append("Access-Control-Allow-Origin", "*");
-
     connection.query("update blog_img set ? where id='"+req.body.id+" '  ",{
         u_class:0
     }, function(error, results, fields){
         res.send("成功")
     })
 })
-
-
-app.listen(5656)
+app.listen(5657)
 console.log("开启服务器");

@@ -15,7 +15,7 @@
         }
 
         .bianji {
-            color:#999;
+            color: #999;
         }
     </style>
 </head>
@@ -51,29 +51,31 @@
                     </p>
                 </div>
                 <div class="side-right-footer" style="height: 40px; overflow: hidden;background: #cacaca;padding: 6px;border-radius: 4px;">
-                    <button style="color: #ffffff;padding: 8px;float: right;border-radius: 6px;border: 0;background: #999;position: relative;top: 3px;" id="btn">发布</button>
+                    <button style="color: #ffffff;padding: 8px;float: right;border-radius: 6px;border: 0;background: #999;position: relative;top: 3px;"
+                        id="btn">发布</button>
                 </div>
             </div>
-            <div class="side-middle"  style="width: 70%;border: 1px solid #ccc;background: #ffffff;padding: 10px;margin-bottom: 20px;overflow: hidden;">
-                    <h4 style="height: 30px;line-height: 30px; border-bottom: 1px solid #ccc">分类项目</h4>
-                  <div class="side-middle-left" style="float: left;">
-                        <select name="" id="fenlei" style="height: 26px;">
-                                <option>日记</option>
-                                <option>心情</option>
-                                <option>想法</option>
-                                <option>随手记</option>
-                                <option>灵感爆炸</option>
-                            </select>
-                  </div>
-                  <div class="side-middle-right" style="float: right;">
-                      <img src="./img/a9.jpg" alt="家有猫咪初养成" style="height: 200px;width: 200px;">
-                  </div>
+            <div class="side-middle" style="width: 70%;border: 1px solid #ccc;background: #ffffff;padding: 10px;margin-bottom: 20px;overflow: hidden;">
+                <h4 style="height: 30px;line-height: 30px; border-bottom: 1px solid #ccc">分类项目</h4>
+                <div class="side-middle-left" style="float: left;">
+                    <select name="" id="fenlei" style="height: 26px;">
+                        <option>日记</option>
+                        <option>心情</option>
+                        <option>想法</option>
+                        <option>随手记</option>
+                        <option>灵感爆炸</option>
+                    </select>
+                </div>
+                <div class="side-middle-right" style="float: right;">
+                    <img src="./img/a9.jpg" alt="家有猫咪初养成" style="height: 200px;width: 200px;">
+                </div>
             </div>
         </div>
     </div>
 </body>
 <script src="./wangEditor/release/wangEditor.min.js"></script>
 <script src="./js/jquery.js"></script>
+
 </html>
 <script>
     var E = window.wangEditor;
@@ -93,27 +95,30 @@
     // 隐藏“网络图片”tab
     //  editor2.customConfig.showLinkImg = false;
     editor2.create();
-   $(function(){
-       $("#btn").on("click",function(){
-           var date = new Date();
-           console.log(date);
-           $.ajax({
-               type:"post",
-               url:"http://localhost:5656/article",
-               async:true,
-               data:{
-                   article_title:$("#title").val(),
-                   article_class:$("#fenlei").val(),
-                   article_content:editor2.txt.html(),
-                   article_time:date,
-                   article_status:1
-               }
-           }).done((data)=>{
-               console.log(data);
-           })
+    $(function () {
+        $("#btn").on("click", function () {
+            var date = new Date();
            
-       })   
+            if ($("#title").val() && editor2.txt.text()){
+            $.ajax({
+                type: "post",
+                url: "http://localhost:5059/article",
+                async: true,
+                data: {
+                    article_title: $("#title").val(),
+                    article_class: $("#fenlei").val(),
+                    article_content: editor2.txt.html(),
+                    article_time: date,
+                    article_status: 1
+                }
+            }).done((data) => {
+                console.log(data);
+            })
+
+        }
+
+    })   
    })
-      
-   
+
+
 </script>

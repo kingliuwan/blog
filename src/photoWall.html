@@ -17,7 +17,7 @@
     $(function () {
         var $container = $('#masonry');
         $.ajax({
-            url: 'http://localhost:5656/getimages',
+            url: 'http://localhost:5657/getimages',
             type: 'POST',
             success: function (data) {
                 var str = JSON.parse(data);

@@ -50,12 +50,12 @@
     $(function () {
         $.ajax({
             type: "post",
-            url: "http://localhost:5656/admin-v3"
+            url: "http://localhost:5657/admin-v3"
         }).then(function (res) {
             for (var i = 0; i < res.length; i++) {
                 var str = `  <tr>
                         <td>
-                            <input type="checkbox">
+                       
                             <span style="color:#0073aa;" id="article_title">${res[i].article_title}</span>
                         </td>
                         <td>
@@ -78,22 +78,20 @@
                         </td>
                     </tr> `;
                 $("tbody").html($("tbody").html() + str);
-
-            }
-            
-            $(".article-list").on("click", function (e) {
-                console.log(e.target);              
-                var params = $(e.target).parents("div").parents("td").parents("tr").find("#article_title").text();
-               // console.log(params);
-                // remove(params);
-                $(e.target).parents("tr").remove();
+            }    
+            $(".article-list").on("click", function (e) {             
+                var params = $(e.target).parents("div").parents("td").parents("tr").find("#article_title").text();   
                 if($(e.target).text()==="离开垃圾箱"){
                     reback(params);
+                    $(e.target).parents("tr").remove();
                 }
+                if($(e.target).text()==="删除"){
+                    remove(params);
+                    $(e.target).parents("tr").remove();
+                }
+                
             })
-           
         })
-
     })
 
 </script>

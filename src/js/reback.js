@@ -2,12 +2,12 @@
  function del(params){
     $.ajax({
         type:"post",
-        url:"http://localhost:5656/del",
+        url:"http://localhost:5657/del",
         data:{
             article_title:params
         }
     }).then(function(res){
-        console.log(res);
+        //console.log(res);
     })
 
 }
@@ -15,7 +15,7 @@
 function reback(params){
     $.ajax({
         type:"post",
-        url:"http://localhost:5656/reback",
+        url:"http://localhost:5657/reback",
         data:{
             article_title:params
         }
@@ -29,11 +29,11 @@ function reback(params){
 function remove(params){
     $.ajax({
         type:"post",
-        url:"http://localhost:5656/remove",
+        url:"http://localhost:5657/remove",
         data:{
             article_title:params
         }
     }).then(function(res){
-        console.log(res);
+        // console.log(res);
     })
 }

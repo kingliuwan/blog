@@ -11,7 +11,9 @@
 <body>
     <div class="top-wrapper">
         <h3 style="color:#4f5357;font-size: 24px;">文章
-            <span>写文章</span>
+            <span>
+                <a href="admin-v1.html">写文章</a>
+            </span>
         </h3>
         <div class="article-search">
             <div class="article-search-left fl">
@@ -39,9 +41,11 @@
             </select>
             <select name="" id="handle-fenlei">
                 <option value="">所有项目分类</option>
-                <option value="">日记</option>
+                <option value="">日记</option>       
                 <option value="">心情</option>
                 <option value="">想法</option>
+                <option value="">随手记</option>
+                <option value="">灵感爆炸</option>
 
             </select>
             <button id="handle-fenlei-v">筛选</button>
@@ -51,7 +55,7 @@
                 <thead>
                     <tr>
                         <th>
-                            <input type="checkbox">
+                            <input type="checkbox" id="checked">
                             <span style="color: #0073aa;">标题</span>
                         </th>
                         <th>作者</th>
@@ -80,7 +84,7 @@
     $(function () {
         $.ajax({
             type: "POST",
-            url: "http://localhost:5656/admin-v2",
+            url: "http://localhost:5657/admin-v2",
         }).then(function (res) {
             var arr = [];
             //增加了一个判断,判断article_status=1的文章才可以写入
@@ -114,6 +118,8 @@
                             <span style="color:#0073aa;">${arr[i].article_time}</span>
                         </td>
                     </tr> `;
+
+                //给文章动态生成内容
                 $("tbody").html($("tbody").html() + str);
                 $(".operate").siblings("span").on("mouseenter", function () {
                     $(this).siblings(".operate").show(200);
@@ -122,17 +128,19 @@
                     }).on("mouseleave", function () {
                         $(this).hide();
                     })
-
                 }).on("mouseleave", function () {
                     $(this).siblings(".operate").hide();
                 })
 
-            }
-            var $del = $(".del");
 
+
+            }
+
+            //利用target绑定,执行垃圾箱的删除操作
+            var $del = $(".del");
             $(".article-list").on("click", function (e) {
 
-                var params = $(e.target).parents("td").find("span").text();
+                var params = $(e.target).parents("div").parents("td").find("span").text();
                 // var params = $(this).children("span").text();
                 //console.log(params); 
                 del(params);
@@ -140,6 +148,29 @@
             $(".del").on("click", function () {
                 $(this).parents("tr").remove();
             })
+
+            //checkbox的复选情况
+            $("#checked").on("click", function () {
+                $("[type=checkbox]").prop("checked", $(this).prop("checked"));
+            })
+        
+            var $inps = $("[type=checkbox]");
+            var count = 0;
+            for (var i = 0; i < $inps.length; i++) {
+                $($inps[i]).on("click", function () {
+                    if ($(this).prop("checked")) {
+                        count++;
+                    }
+                    console.log(count,$inps.length);
+                    if(count === ($inps.length-1)){
+                        $("#checked").prop("checked",true);
+                    }  
+                })
+            }
+           $("#handle-xiugai-v").on("click",function(){
+               console.log($("#handle-xiugai").val());
+           })
+           console.log($("#handle-xiugai").val());
         })
 
 
