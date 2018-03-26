@@ -45,6 +45,7 @@ app.post('/updataperson',function (req,res) {
     res.append("Access-Control-Allow-Origin", "*")
     console.log(req.body);
     connection.query("update person set ? where p_id=1",{
+        personimg:req.body.m_personimg,
         name:req.body.m_name,
         email:req.body.m_email,
         tel:req.body.m_tel,
@@ -53,6 +54,18 @@ app.post('/updataperson',function (req,res) {
         department:req.body.m_department,
         remarks:req.body.m_Remarks,
         profile:req.body.profile
+    },function (error, result, fields) {
+        if(error)
+            throw error
+        res.send("修改成功")
+    })
+})
+//修改头像
+app.post('/personimg',function (req,res) {
+    res.append("Access-Control-Allow-Origin", "*")
+
+    connection.query("update person set ? where p_id=1",{
+        personimg:req.body.m_personimg,
     },function (error, result, fields) {
         if(error)
             throw error
@@ -188,5 +201,5 @@ app.post("/remove", function (req, res) {
 
 //删除
 
-app.listen(5657)
+app.listen(5656)
 console.log("开启服务器");

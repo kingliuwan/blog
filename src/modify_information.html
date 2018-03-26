@@ -9,19 +9,23 @@
 		<div class="content">
 			<h2>基本信息</h2>
 <!--更换头像-->
-			<div class="upfile">
-				<div class="now_img">
-						<img width="100" height="100" src="img/a1.jpg" alt="">		
-				</div>
-				<div class="imgjs">						
-					<form class="am-form" id="uploadForm">
-						<div class="am-form-group"><br />
-							<input style="margin-left: 150px;" type="file" id="user-pic" name="logo" />	<br /><br />
-							<button type="button" onclick="doUpload()">保存</button>
-						</div>
-					</form>
-				</div>
-			</div>
+<div class="upfile">
+	<div class="now_img">
+		<img id="personimg" name="m_personimg" width="100" height="100">
+	</div>
+	<div class="imgjs">
+		<form class="am-form" id="uploadForm">
+			<!--<div class="am-form-group">-->
+			<!--<br/>-->
+			<input style="margin-left: 150px;" type="file" id="user-pic" name="logo"/>
+			<!--<br/>-->
+			<!--<br/>-->
+			<input id="btn" type="button" value="保存"/>
+			<!--<button type="button" onclick="doUpload()">保存</button>-->
+			<!--</div>-->
+		</form>
+	</div>
+</div>
 <!--修改资料-->
 			<form id="myform" class="xx">
 				<p>
@@ -60,41 +64,61 @@
 
 <script src="js/jquery.js"></script>
 <script>
+$(function () {
+	$.ajax({
+           type: "POST",
+           url: "http://localhost:5656/person",
+	}).then(function (res) {
+           $('#personimg').attr("src", 'img/' + res[0].personimg);
+           $('input[name="m_name"]').val(res[0].name);
+           $('input[name="m_email"]').val(res[0].email);
+           $('input[name="m_tel"]').val(res[0].tel);
+           $('input[name="m_phone"]').val(res[0].phone);
+           $('input[name="m_company"]').val(res[0].company);
+           $('input[name="m_department"]').val(res[0].department);
+           $('input[name="m_Remarks"]').val(res[0].remarks);
+           $('textarea[name="profile"]').val(res[0].profile);
+       })
 
-	$(function () {
-		$.ajax({
-            type: "POST",
-            url: "http://localhost:5656/person",
+
+       $("#btn").on("click", function(){
+           var arr=($('#user-pic').val()).split('\\');
+		$("img").attr("src","img/"+arr[2]);
+           $.ajax({
+               type : "POST",
+               url : "http://localhost:5656/personimg",
+               data : {
+                   m_personimg : arr[2],
+               },
+           }).then(function(res){
+               console.log(res);
+           })
+           return false;
+       })
+
+
+
+       $("#bt1").on("click",function () {
+           console.log($('textarea[name="profile"]').val());
+           $.ajax({
+               type: "POST",
+               url: "http://localhost:5656/updataperson",
+			data:{
+                   m_name:$('input[name="m_name"]').val(),
+                   m_email:$('input[name="m_email"]').val(),
+                   m_tel:$('input[name="m_tel"]').val(),
+                   m_phone:$('input[name="m_phone"]').val(),
+                   m_company:$('input[name="m_company"]').val(),
+                   m_department:$('input[name="m_department"]').val(),
+                   m_Remarks:$('input[name="m_Remarks"]').val(),
+                   profile:$('textarea[name="profile"]').val(),
+                   m_personimg : arr[2],
+			}
 		}).then(function (res) {
-            $('input[name="m_name"]').val(res[0].name);
-            $('input[name="m_email"]').val(res[0].email);
-            $('input[name="m_tel"]').val(res[0].tel);
-            $('input[name="m_phone"]').val(res[0].phone);
-            $('input[name="m_company"]').val(res[0].company);
-            $('input[name="m_department"]').val(res[0].department);
-            $('input[name="m_Remarks"]').val(res[0].remarks);
-            $('textarea[name="profile"]').val(res[0].profile);
-        })
-		
-		$("#bt1").on("click",function () {
-            console.log($('textarea[name="profile"]').val());
-            $.ajax({
-                type: "POST",
-                url: "http://localhost:5656/updataperson",
-				data:{
-                    m_name:$('input[name="m_name"]').val(),
-                    m_email:$('input[name="m_email"]').val(),
-                    m_tel:$('input[name="m_tel"]').val(),
-                    m_phone:$('input[name="m_phone"]').val(),
-                    m_company:$('input[name="m_company"]').val(),
-                    m_department:$('input[name="m_department"]').val(),
-                    m_Remarks:$('input[name="m_Remarks"]').val(),
-                    profile:$('textarea[name="profile"]').val(),
-				}
-			}).then(function (res) {
-                console.log(res);
-            })
-			return false;
-        })
-    })
+               console.log(res);
+           })
+		return false;
+       })
+   })
+
 </script>

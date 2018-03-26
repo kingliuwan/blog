@@ -84,7 +84,7 @@
     $(function () {
         $.ajax({
             type: "POST",
-            url: "http://localhost:5657/admin-v2",
+            url: "http://localhost:5656/admin-v2",
         }).then(function (res) {
             var arr = [];
             //增加了一个判断,判断article_status=1的文章才可以写入
@@ -142,7 +142,7 @@
 
                 var params = $(e.target).parents("div").parents("td").find("span").text();
                 // var params = $(this).children("span").text();
-                //console.log(params); 
+                console.log(params); 
                 del(params);
             })
             $(".del").on("click", function () {

@@ -141,5 +141,5 @@ app.post('/removeimg', upload.any(),function(req, res){
         res.send("成功")
     })
 })
-app.listen(5657)
+app.listen(5656)
 console.log("开启服务器");
