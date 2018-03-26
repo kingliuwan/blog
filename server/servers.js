@@ -31,7 +31,16 @@ app.post('/login',function (req,res) {
 /*评论后台*/
 app.post('/comment',function (req,res) {
     res.append("Access-Control-Allow-Origin", "*")
-    connection.query()
+    connection.query("SELECT * FROM article AS a INNER JOIN COMMENT  AS b INNER JOIN person AS c WHERE a.a_id=b.a_id",function (error, result, fields) {
+        res.send(result)
+    })
+})
+/*删除评论*/
+app.post('/removecomment',function (req,res) {
+    res.append("Access-Control-Allow-Origin", "*")
+    connection.query("delete from comment where c_id='"+req.body.cId+"'",function (error, result, fields) {
+        res.send(result)
+    })
 })
 /*个人资料后台*/
 app.post('/person',function (req,res) {
@@ -198,8 +207,23 @@ app.post("/remove", function (req, res) {
         res.send(results);
     })
 })
+//修改背景图片的后台
+app.post("/bgchange",function (req,res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("update bgimg set ?  where bg_id='1'",{
+        bg_url:req.body.bgimg
+    } ,function (error, results, fields) {
+        res.send(results);
+    })
+})
 
-//删除
+//首页背景图
+app.post("/bgimg",function (req,res){
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("SELECT * FROM bgimg",function (error, results, fields) {
+        res.send(results);
+    })
+})
 
 app.listen(5656)
 console.log("开启服务器");

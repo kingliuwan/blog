@@ -7,119 +7,91 @@
 </head>
 <body>
 <div class="body">
-<div class="main">
-    <div class="header">
-        <h3>评论管理</h3>
-        <form action="" class="inp">
-            <input type="text" value="大爷要看什么？">
-            <button>搜索</button>
-        </form>
-    </div>
+    <div class="main">
+        <div class="header">
+            <h3>评论管理</h3>
+            <form action="" class="inp">
+                <input type="text" value="大爷要看什么？">
+                <button>搜索</button>
+            </form>
+        </div>
 
-    <table cellspacing="0" cellpadding="0">
-        <thead>
-        <tr>
-            <th class="tb1"><input type="checkbox"></th>
-            <th class="tb2">作者</th>
-            <th class="tb3">评论</th>
-            <th class="tb4">回复至</th>
-            <th class="tb5">提交于</th>
-        </tr>
-        </thead>
-        <tbody>
+        <table cellspacing="0" cellpadding="0">
+            <thead>
             <tr>
-                <td class="td1"><input type="checkbox"></td>
-                <td class="td2">
-                    <img src="img/a1.jpg" alt="" width="100%" height="100%">
-                    <div class="left">
-                        <p>lw</p>
-                        <p>995050166@qq.com</p>
-                    </div>
-                </td>
-                <td class="td3">撒大声地撒打算发实打实大师大沙发沙发沙发沙发多少的嘎嘎的DGAG萨达四大沙发沙发飒飒大师大萨达四大三</td>
-                <td class="td4">
-                    <p>文章名</p>
-                    <p><a href="">文章详情页</a></p>
-                </td>
-                <td class="td5">提交的时间</td>
+                <th class="tb1"><input type="checkbox"></th>
+                <th class="tb2">作者</th>
+                <th class="tb3">评论</th>
+                <th class="tb4">回复至</th>
+                <th class="tb5">提交于</th>
             </tr>
-        <tr>
-            <td class="td1"><input type="checkbox"></td>
-            <td class="td2">
-                <img src="img/a1.jpg" alt="" width="100%" height="100%">
-                <div class="left">
-                    <p>lw</p>
-                    <p>995050166@qq.com</p>
-                </div>
-            </td>
-            <td class="td3">撒大声地撒打算发实打实大师大沙发沙发沙发沙发多少的嘎嘎的DGAG萨达四大沙发沙发飒飒大师大萨达四大三</td>
-            <td class="td4">
-                <p>文章名</p>
-                <p><a href="">文章详情页</a></p>
-            </td>
-            <td class="td5">提交的时间</td>
-        </tr>
-        <tr>
-            <td class="td1"><input type="checkbox"></td>
-            <td class="td2">
-                <img src="img/a1.jpg" alt="" width="100%" height="100%">
-                <div class="left">
-                    <p>lw</p>
-                    <p>995050166@qq.com</p>
-                </div>
-            </td>
-            <td class="td3">撒大声地撒打算发实打实大师大沙发沙发沙发沙发多少的嘎嘎的DGAG萨达四大沙发沙发飒飒大师大萨达四大三</td>
-            <td class="td4">
-                <p>文章名</p>
-                <p><a href="">文章详情页</a></p>
-            </td>
-            <td class="td5">提交的时间</td>
-        </tr>
-        <tr>
-            <td class="td1"><input type="checkbox"></td>
-            <td class="td2">
-                <img src="img/a1.jpg" alt="" width="100%" height="100%">
-                <div class="left">
-                    <p>lw</p>
-                    <p>995050166@qq.com</p>
-                </div>
-            </td>
-            <td class="td3">撒大声地撒打算发实打实大师大沙发沙发沙发沙发多少的嘎嘎的DGAG萨达四大沙发沙发飒飒大师大萨达四大三</td>
-            <td class="td4">
-                <p>文章名</p>
-                <p><a href="">文章详情页</a></p>
-            </td>
-            <td class="td5">提交的时间</td>
-        </tr>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
 
-    <button class="btn">删除评论</button>
-</div>
+            </tbody>
+        </table>
+
+        <button class="btn">删除评论</button>
+    </div>
 </div>
 </body>
 </html>
 <script src="js/jquery.js"></script>
 <script>
     $(function () {
-        var $chequan=$("thead input");
-        var $che=$("tbody input");
-        var btn=$(".btn");
-        $chequan.on("click",function () {
-            if($chequan.is(":checked")){
-                $che.attr("checked",'checked');
-            }else {
-                $che.attr("checked",false);
-            }
-        })
-
-        btn.on("click",function () {
-            console.log($che.is(":checked"));
-            $che.each(function () {
-                if($(this).is(":checked")){
-                    $(this).parents("tr").hide();
+        $.ajax({
+            url: "http://localhost:5656/comment",
+            type: "post"
+        }).then(function (res) {
+                console.log(res);
+                for (var i = 0; i < res.length; i++) {
+                    console.log(res[i].c_id);
+                    var str = "";
+                    str += "<tr>";
+                    str += "<td class='td1'><input type='checkbox' cId='"+res[i].c_id+"'></td>";
+                    str += "<td class='td2'>";
+                    str += "<img src='img/" + res[i].personimg + "' alt='' width='100%' height='100%'>";
+                    str += "<div class='left'>";
+                    str += "<p>" + res[i].name + "</p>";
+                    str += "<p>" + res[i].email + "</p>";
+                    str += "</div>";
+                    str += "</td>";
+                    str += "<td class='td3'>" + res[i].c_content + "</td>";
+                    str += "<td class='td4'>";
+                    str += "<p>" + res[i].article_title + "</p>";
+                    str += "<p><a href=''>文章详情页</a></p>";
+                    str += "</td>";
+                    str += "<td class='td5'>" + res[i].c_time + "</td>";
+                    str += "</tr>";
+                    $("tbody").append(str);
                 }
+
+            }
+        )
+
+
+        var $chequan = $("thead input");
+        $("thead").on("click", $chequan, function () {
+            $("tbody input").prop("checked",$(this).find("input").prop("checked"))
+        });
+
+        $(".btn").on("click", function () {
+            alert("确认删除？")
+            var chec=$("tbody input:checked")
+            chec.each(function () {
+                $(this).parents("tr").remove();
+                var id=$(this).attr("cId");
+                $.ajax({
+                    url:"http://localhost:5656/removecomment",
+                    type:"post",
+                    data:{
+                        cId:id
+                    }
+                }).then(function (res) {
+
+                })
             })
+            return false;
         })
     })
 </script>

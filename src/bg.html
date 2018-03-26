@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<div class="bg">
-			<p>背景图</p>
+			<h2>背景图</h2>
 			<ul>
 				<li><img src="img/bg/bg01.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
 				<li><img src="img/bg/bg02.jpg"/><p><a class="click" href="#">点击使用</a></p></li>
@@ -28,7 +28,16 @@
 		$(this).find("p").hide();
 	})
 	$(".click").on("click",function () {
-        console.log($(this).parent().siblings().attr());
-        $(this).parent().siblings("img").attr("src");
+        console.log($(this).parent().siblings().attr("src"));
+       var img=$(this).parent().siblings("img").attr("src");
+       $.ajax({
+		   url:"http://localhost:5656/bgchange",
+		   type:"post",
+		   data:{
+		       bgimg:img
+		   }
+	   }).then(function (res) {
+           console.log(res);
+       })
     })
 </script>

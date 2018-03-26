@@ -2,10 +2,14 @@
 a{
 	text-decoration: none;
 }
+.main{
+	width: 1122px;
+	margin: 0 auto;
+}
 html,body{
 	width: 100%;
 	height: 100%;
-	background: url(../img/bg/bg07.jpg);
+	/*background: url(../img/bg/bg07.jpg);*/
 	background-attachment: fixed;
 	background-size: cover;	
 	padding: 30px;
@@ -19,6 +23,10 @@ html,body{
 	background: #676A6C;
 	margin-bottom: 20px;
 	padding-left: 500px;
+}
+.nav ul{
+	float: right;
+	margin-right:8px ;
 }
 .nav ul li{
 	width: 70px;

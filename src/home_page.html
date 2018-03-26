@@ -6,23 +6,28 @@
     <link rel="stylesheet" type="text/css" href="css/home_page.css"/>
 </head>
 <body>
+<div class="main">
 	<div class="nav">
+
 		<ul>
 			<li><a href="#">关于我</a></li>
 			<li><a href="#">慢生活</a></li>
 			<li><a href="#">忙里偷闲</a></li>
 			<li><a href="#">学无止境</a></li>
-			<li><a href="#">相册</a></li>
-			<li><a href="#">留言板</a></li>
+			<li><a href="#">我的相册</a></li>
+			<li><a href="login.html">后台界面</a></li>
 		</ul>
+	</div>
 	</div>
 	<div class="banner">
 		
 	</div>
+	<div class="main">
 	<div class="content">
+
 		<div class="wz">
 			<h4>外交部谈中美贸易战</h4>
-			<p>中方坚决反对所谓“与台湾交往法”，已就你提到的有关情况向美方提出严正交涉。我们敦促美方恪守一个中国原则和中美三个联合公报规定，停止与台进行任何形式的官方往来与接触，慎重妥善处理涉台问题，以免对中美关系和台海和平稳定造成严重损害。</p>
+			<p>&emsp;中方坚决反对所谓“与台湾交往法”，已就你提到的有关情况向美方提出严正交涉。我们敦促美方恪守一个中国原则和中美三个联合公报规定，停止与台进行任何形式的官方往来与接触，慎重妥善处理涉台问题，以免对中美关系和台海和平稳定造成严重损害。</p>
 			<i>
 				<a href="#"><img src="img/ping.png"/>&nbsp;<b> 100 </b></a>	
 				<a href="#"><img src="img/zan.png"/>&nbsp;  <b> 30 </b></a>							
@@ -37,5 +42,19 @@
 			<button id="btn_ser">搜索</button>
 		</form>
 	</div>
+	</div>
 </body>
 </html>
+<script src="js/jquery.js"></script>
+<script>
+	$(function () {
+        console.log($("html,body"));
+        $.ajax({
+			url:"http://localhost:5656/bgimg",
+			type:"post",
+		}).then(function (res) {
+            console.log(res[0]["bg_url"]);
+            $("body").css("background",'url('+res[0]["bg_url"]+')');
+        })
+    })
+</script>
