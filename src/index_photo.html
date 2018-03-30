@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LW的博客</title>
+    <link rel="stylesheet" type="text/css" href="css/index_photo.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="nav">
+        <div class="logo"><a href="index.html"><img src="img/logo.png" alt="" width="100%" height="100%"></a></div>
+        <ul>
+            <li><a href="index_aboutme.html">关于我</a></li>
+            <li><a href="index_lift.html">慢生活</a></li>
+            <li><a href="index_photo.html" style="color: #FFB94F">我的相册</a></li>
+            <li><a href="login.html">后台界面</a></li>
+        </ul>
+    </div>
+</div>
+<div class="banner">
+</div>
+<div class="main">
+    <div class="content">
+        <h2 class="title">照片墙<span></span></h2>
+        <div id="masonry" class="photo"></div>
+    </div>
+
+
+    <div class="aside">
+        <h3>全部分类</h3>
+        <form id="serch">
+            <input type="text" placeholder=" 搜 索 "/>
+            <button id="btn_ser">搜索</button>
+        </form>
+        <div class="weather" style="margin-top: 8px">
+            <h5>本地天气</h5>
+            <iframe width="250" scrolling="no" height="60" frameborder="0" allowtransparency="true"
+                    src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=1"></iframe>
+        </div>
+        <div class="list">
+            <h4>文章分类</h4>
+            <ul>
+                <li>日记</li>
+                <li>心情</li>
+                <li>想法</li>
+                <li>随手记</li>
+                <li>灵感爆炸</li>
+                <li>时政评论</li>
+            </ul>
+        </div>
+        <div class="newart">
+            <h4>最近发表的文章</h4>
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script src="js/masonry.pkgd.min.js"></script>
+<script src="js/asideArt.js"></script>
+<script>
+    $(function () {
+            $.ajax({
+                url: "http://localhost:5656/bgimg",
+                type: "post",
+            }).then(function (res) {
+                console.log(res[0]["bg_url"]);
+                $("body").css("background", 'url(' + res[0]["bg_url"] + ') no-repeat');
+            })
+
+        var $container = $('#masonry');
+        $.ajax({
+            url: 'http://localhost:5656/getimages',
+            type: 'POST',
+            success: function (data) {
+                var str = JSON.parse(data);
+                console.log(str);
+                for (var i = 0; i < 33; i++) {
+                    var ID = str[i].id;
+                    if (str[i].u_class == 1) {
+                        var Div1 = $('<div class="box"></div>');
+                        var Div2 = $('<div class="del">哈哈哈</div>');
+                        var imgObj = $("<img class='imgId' id=" + ID + ">").attr("src", "img/bgimg/" + str[i].u_path);
+
+                        var oImg = $('.photo')
+                        Div2.appendTo(Div1)
+                        imgObj.appendTo(Div1)
+                        Div1.appendTo(oImg)
+                    }
+                }
+            }
+        }).then(function () {
+
+            $container.masonry({
+                columnWidth: 200,
+                itemSelector: '.box',
+                gutter: 8,
+                isAnimated: true,
+            });
+            $(document).on("mouseover", ".box", function () {
+                $(this).find("div").stop().show();
+            })
+            $(document).on("mouseout", ".box", function () {
+                $(this).find("div").stop().hide();
+            })
+        })
+
+    })
+
+
+</script>

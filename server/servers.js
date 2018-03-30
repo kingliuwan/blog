@@ -224,6 +224,25 @@ app.post("/bgimg",function (req,res){
         res.send(results);
     })
 })
-
+//首页的文章后台
+app.post("/index", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("SELECT * FROM article WHERE article_status=1 ORDER BY a_id DESC LIMIT 0,4", function (error, results, fields) {
+        // if(error) throw error;
+        // var mmp = JSON.stringify(results);
+        // console.log(results);
+        res.send(results);
+    })
+})
+//首页的文章切换后台
+app.post("/changearcitle", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("SELECT * FROM article WHERE article_status=1 ORDER BY a_id DESC LIMIT "+req.body.num*4+",4", function (error, results, fields) {
+        // if(error) throw error;
+        // var mmp = JSON.stringify(results);
+        // console.log(results);
+        res.send(results);
+    })
+})
 app.listen(5656)
 console.log("开启服务器");

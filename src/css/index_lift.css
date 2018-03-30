@@ -1,0 +1,43 @@
+.histroy{
+    overflow: hidden;
+    margin-top: 8px;
+}
+.histroy .hleft{
+    width: 600px;
+    float: left;
+    border-right: 1px dashed #888888;
+}
+.histroy .hright{
+    width: 200px;
+    float: left;
+    margin-left: 8px;
+}
+.histroy .hleft ul li{
+    height: 25px;
+    width: 588px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    border-bottom: 1px dashed #888888;
+}
+.histroy .hleft ul li a{
+    font-size: 16px;
+    line-height: 16px;
+    color: #363337;
+    float: left;
+}
+.histroy .hleft ul li a:hover{
+    color: #FFB94F;
+}
+.histroy .hleft ul li span{
+    font-size: 16px;
+    line-height: 16px;
+    color: #363337;
+    float: right;
+}
+.histroy .hright ul li{
+    height: 25px;
+    width: 200px;
+    margin-bottom: 16px;
+    margin-top: 16px;
+    border-bottom: 1px dashed #888888;
+}

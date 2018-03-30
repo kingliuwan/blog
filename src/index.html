@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LW的博客</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css"/>
+</head>
+<body>
+<div class="main">
+    <div class="nav">
+        <div class="logo"><a href="index.html"><img src="img/logo.png" alt="" width="100%" height="100%"></a></div>
+        <ul>
+            <li><a href="index_aboutme.html">关于我</a></li>
+            <li><a href="index_lift.html">慢生活</a></li>
+            <li><a href="index_photo.html">我的相册</a></li>
+            <li><a href="login.html">后台界面</a></li>
+        </ul>
+    </div>
+</div>
+<div class="banner">
+</div>
+<div class="main">
+    <div class="content">
+        <h2 class="title">文章列表<span></span></h2>
+        <div class="wenzang"></div>
+        <div class="yema">
+            <ul></ul>
+        </div>
+    </div>
+
+
+    <div class="aside">
+        <h3>全部分类</h3>
+        <form id="serch">
+            <input type="text" placeholder=" 搜 索 "/>
+            <button id="btn_ser">搜索</button>
+        </form>
+        <div class="weather" style="margin-top: 8px">
+            <h5>本地天气</h5>
+            <iframe width="250" scrolling="no" height="60" frameborder="0" allowtransparency="true"
+                    src="http://i.tianqi.com/index.php?c=code&id=12&icon=1&num=1"></iframe>
+        </div>
+        <div class="list">
+            <h4>文章分类</h4>
+            <ul>
+                <li>日记</li>
+                <li>心情</li>
+                <li>想法</li>
+                <li>随手记</li>
+                <li>灵感爆炸</li>
+                <li>时政评论</li>
+            </ul>
+        </div>
+        <div class="newart">
+            <h4>最近发表的文章</h4>
+            <ul>
+
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--<div class="footer">-->
+    <!--<div class="main">-->
+    <!--<span>欢迎来到LIULIU博客</span>-->
+    <!--</div>-->
+<!--</div>-->
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script src="js/asideArt.js"></script>
+<script>
+    $(function () {
+        console.log($("html,body"));
+        $.ajax({
+            url: "http://localhost:5656/bgimg",
+            type: "post",
+        }).then(function (res) {
+            console.log(res[0]["bg_url"]);
+            $("body").css("background", 'url(' + res[0]["bg_url"] + ') no-repeat');
+        })
+        $.ajax({
+            url: "http://localhost:5656/admin-v2",
+            type: "post",
+        }).then(function (res) {
+            console.log(Math.ceil(res.length / 4));
+            var num=Math.ceil(res.length / 4);
+            for(var i=0;i<num;i++){
+               var  str="";
+               str+="<li>"+(i+1)+"</li>";
+               $(".yema>ul").append(str);
+            }
+        })
+        $.ajax({
+            url: "http://localhost:5656/index",
+            type: "post",
+        }).then(function (res) {
+            for(var i=0;i<res.length;i++){
+            var article=res[i]["article_content"].substr(0,188)
+            var str = '';
+            str += '<div class="wz">';
+            str += '<a href="index_article.html?a_id='+res[i]["a_id"]+'"><h4>'+res[i]["article_title"]+'</h4></a>';
+            str += article+'...';
+            str += '<i>';
+            str += '<a href="#"><img src="img/shuqian.jpg"/>&nbsp;<b>'+res[i]["article_class"]+'</b></a>';
+            str += '<a href="#"><img src="img/time.png"/>&nbsp;<b>'+res[i]["article_time"]+'</b></a>';
+            str += '<a href="#"><img src="img/ping.png"/>&nbsp;<b>评论</b></a>';
+            str += '<a href="#"><img src="img/zan.png"/>&nbsp;  <b>'+res[i]["article_zan"]+'</b></a>';
+            str += '</i>';
+            str += '</div>';
+            $(".wenzang").append(str);
+            }
+        })
+
+    $(".yema").on("click","li",function () {
+        $(".wenzang").find(".wz").remove();
+        var num=$(this).text()-1;
+        $.ajax({
+            url:"http://localhost:5656/changearcitle",
+            type:"post",
+            data:{
+                num:num
+            }
+        }).then(function (res) {
+            for(var i=0;i<res.length;i++){
+                var article=res[i]["article_content"].substr(0,188)
+                var str = '';
+                str += '<div class="wz">';
+                str += '<a href="index_article.html?a_id='+res[i]["a_id"]+'"><h4>'+res[i]["article_title"]+'</h4></a>';
+                str += article+'...';
+                str += '<i>';
+                str += '<a href="#"><img src="img/shuqian.jpg"/>&nbsp;<b>'+res[i]["article_class"]+'</b></a>';
+                str += '<a href="#"><img src="img/time.png"/>&nbsp;<b>'+res[i]["article_time"]+'</b></a>';
+                str += '<a href="#"><img src="img/ping.png"/>&nbsp;<b>评论</b></a>';
+                str += '<a href="#"><img src="img/zan.png"/>&nbsp;  <b>'+res[i]["article_zan"]+'</b></a>';
+                str += '</i>';
+                str += '</div>';
+                $(".wenzang").append(str);
+            }
+        });
+
+    })
+    })
+</script>
