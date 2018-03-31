@@ -150,8 +150,6 @@ app.post('/getimages', upload.any(), function(req, res){
         res.end(str1);
     })
 });
-
-
 //改变图片状态
 app.post('/removeimg', upload.any(),function(req, res){
     console.log(req.body.id);
@@ -196,9 +194,6 @@ app.post("/del", function (req, res) {
             res.send(results);
         })
 })
-
-
-
 //删除数据库中不需要的表的操作,永远也看不到了
 app.post("/remove", function (req, res) {
     res.append("Access-Control-Allow-Origin", "*");
@@ -241,6 +236,34 @@ app.post("/changearcitle", function (req, res) {
         // if(error) throw error;
         // var mmp = JSON.stringify(results);
         // console.log(results);
+        res.send(results);
+    })
+})
+//跳转到详情文章页面
+app.post("/detailsarticle", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("SELECT * FROM article WHERE a_id="+req.body.a_id, function (error, results, fields) {
+        // if(error) throw error;
+        // var mmp = JSON.stringify(results);
+        // console.log(results);
+        res.send(results);
+    })
+})
+//前端提交评论
+app.post("/postcomment", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("insert into comment set ?",{
+        c_content:req.body.content,
+        c_time:req.body.time,
+        a_id:req.body.id
+    }, function (error, results, fields) {
+        res.send(results);
+    })
+})
+//定向查询评论
+app.post("/commenttwo", function (req, res) {
+    res.append("Access-Control-Allow-Origin", "*");
+    connection.query("SELECT * FROM comment WHERE a_id="+req.body.id, function (error, results, fields) {
         res.send(results);
     })
 })

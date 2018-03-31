@@ -59,7 +59,7 @@
                     str += "<td class='td3'>" + res[i].c_content + "</td>";
                     str += "<td class='td4'>";
                     str += "<p>" + res[i].article_title + "</p>";
-                    str += "<p><a href=''>文章详情页</a></p>";
+                    str += '<p><a href="index_article.html?a_id=' + res[i]["a_id"] + '">文章详情页</a></p>';
                     str += "</td>";
                     str += "<td class='td5'>" + res[i].c_time + "</td>";
                     str += "</tr>";

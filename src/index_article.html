@@ -23,6 +23,35 @@
 <div class="main">
     <div class="content">
         <h2 class="title">文章展示<span></span></h2>
+        <div class="article">
+
+            <div class="content-article" style="overflow: hidden;">
+                <div class="left-header" style="float: left;margin-left: 16px;font-size: 14px;margin-top: 10px;">
+                    <p>
+                        <strong>当前位置:</strong>
+                        <span>首页>文章</span>
+                    </p>
+
+                </div>
+
+            </div>
+            <h3 class="articletitle" style="text-align: center;margin-top:10px;"></h3>
+            <div class="pinlun" style="margin: 10p x 40px;padding: 10px 0;border-bottom: 1px dashed #cccccc;overflow: hidden;">
+                <p>发布时间：<span class="time">2018/3/30</span>&emsp;分类：<span id="xinqin">心情</span></p>
+            </div>
+            <div class="all-content" style="overflow: hidden;margin-top: 20px;min-height: 480px;margin-bottom: 30px;border-bottom: 1px dashed #cccccc;padding-bottom: 20px;">
+              </div>
+            <div class="pinlun-message">
+                    <textarea name="message" id="txt" cols="30" rows="10 " style="height: 60px;width: 400px;"></textarea>
+                <button class="sub" style="padding: 3px;margin-left: 20px;position: relative;top: -8px;">发表评论</button>
+            </div>
+            <div class="review" style="width: 100%">
+                <h4>全部评论</h4>
+                <ul style="overflow: hidden;width: 810px">
+
+                </ul>
+            </div>
+        </div>
     </div>
 
 
@@ -56,7 +85,11 @@
         </div>
     </div>
 
-
+    <div class="main">
+        <div class="footer">
+            <span>欢迎来到LIULIU博客</span>
+        </div>
+    </div>
 </div>
 </body>
 </html>
@@ -64,6 +97,7 @@
 <script src="js/asideArt.js"></script>
 <script>
     $(function () {
+        //背景图请求
         console.log($("html,body"));
         $.ajax({
             url: "http://localhost:5656/bgimg",
@@ -72,18 +106,58 @@
             console.log(res[0]["bg_url"]);
             $("body").css("background", 'url(' + res[0]["bg_url"] + ') no-repeat');
         })
+        var strid=window.location.search.split("=");
+        //详细文章请求
         $.ajax({
-            url: "http://localhost:5656/admin-v2",
+            url: "http://localhost:5656/detailsarticle",
             type: "post",
-        }).then(function (res) {
-            console.log(res);
-            for(var i=0;i<res.length;i++){
-                var article=res[i]["article_content"]
-                var str = '';
-                str+=article;
-                $(".content").append(str);
+            data:{
+                a_id:strid[1]
             }
+        }).then(function (res) {
+                console.log(res);
+            $(".articletitle").html(res[0]["article_title"]);
+            $(".time").html(res[0]["article_time"]);
+            $("#xinqin").html(res[0]["article_class"])
+            $(".all-content").html(res[0]["article_content"])
+            })
+        //加载评论
+        var loadcom=function (id) {
+            $.ajax({
+                url: "http://localhost:5656/commenttwo",
+                type: "post",
+                data:{
+                    id:id
+                }
+            }).then(function (res) {
+                for (var i = 0; i < res.length; i++) {
+                    var str="";
+                    str+='<li  style="border-bottom: 1px solid #c4c4c4;width: 100%;overflow: hidden;margin-bottom: 8px' +
+                        '"><span style="float: left">'+(i+1)+'.'+res[i].c_content+'</span>' +
+                        '<span style="float: right">'+res[i].c_time+'</span></li>';
+                    $(".review>ul").append(str);
+                }
+            })
+        }
+        loadcom(strid[1]);
 
+        //提交评论
+        $(".sub").on("click",function () {
+            var content=$("#txt").val();
+            $("#txt").val("");
+            var date = new Date();
+            $.ajax({
+                url:"http://localhost:5656/postcomment",
+                type:"post",
+                data:{
+                    content:content,
+                    id:strid[1],
+                    time:date
+                }
+            }).then(function (res) {
+                $(".review>ul").find("li").remove()
+                loadcom(strid[1]);
+            })
         })
     })
 </script>

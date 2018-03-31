@@ -60,11 +60,11 @@
     </div>
 </div>
 
-<!--<div class="footer">-->
-    <!--<div class="main">-->
-    <!--<span>欢迎来到LIULIU博客</span>-->
-    <!--</div>-->
-<!--</div>-->
+<div class="main">
+    <div class="footer">
+        <span>欢迎来到LIULIU博客</span>
+    </div>
+</div>
 </body>
 </html>
 <script src="js/jquery.js"></script>
@@ -84,61 +84,61 @@
             type: "post",
         }).then(function (res) {
             console.log(Math.ceil(res.length / 4));
-            var num=Math.ceil(res.length / 4);
-            for(var i=0;i<num;i++){
-               var  str="";
-               str+="<li>"+(i+1)+"</li>";
-               $(".yema>ul").append(str);
+            var num = Math.ceil(res.length / 4);
+            for (var i = 0; i < num; i++) {
+                var str = "";
+                str += "<li>" + (i + 1) + "</li>";
+                $(".yema>ul").append(str);
             }
         })
         $.ajax({
             url: "http://localhost:5656/index",
             type: "post",
         }).then(function (res) {
-            for(var i=0;i<res.length;i++){
-            var article=res[i]["article_content"].substr(0,188)
-            var str = '';
-            str += '<div class="wz">';
-            str += '<a href="index_article.html?a_id='+res[i]["a_id"]+'"><h4>'+res[i]["article_title"]+'</h4></a>';
-            str += article+'...';
-            str += '<i>';
-            str += '<a href="#"><img src="img/shuqian.jpg"/>&nbsp;<b>'+res[i]["article_class"]+'</b></a>';
-            str += '<a href="#"><img src="img/time.png"/>&nbsp;<b>'+res[i]["article_time"]+'</b></a>';
-            str += '<a href="#"><img src="img/ping.png"/>&nbsp;<b>评论</b></a>';
-            str += '<a href="#"><img src="img/zan.png"/>&nbsp;  <b>'+res[i]["article_zan"]+'</b></a>';
-            str += '</i>';
-            str += '</div>';
-            $(".wenzang").append(str);
-            }
-        })
-
-    $(".yema").on("click","li",function () {
-        $(".wenzang").find(".wz").remove();
-        var num=$(this).text()-1;
-        $.ajax({
-            url:"http://localhost:5656/changearcitle",
-            type:"post",
-            data:{
-                num:num
-            }
-        }).then(function (res) {
-            for(var i=0;i<res.length;i++){
-                var article=res[i]["article_content"].substr(0,188)
+            for (var i = 0; i < res.length; i++) {
+                var article = res[i]["article_content"].substr(0, 188)
                 var str = '';
                 str += '<div class="wz">';
-                str += '<a href="index_article.html?a_id='+res[i]["a_id"]+'"><h4>'+res[i]["article_title"]+'</h4></a>';
-                str += article+'...';
+                str += '<a href="index_article.html?a_id=' + res[i]["a_id"] + '"><h4>' + res[i]["article_title"] + '</h4></a>';
+                str += article + '...';
                 str += '<i>';
-                str += '<a href="#"><img src="img/shuqian.jpg"/>&nbsp;<b>'+res[i]["article_class"]+'</b></a>';
-                str += '<a href="#"><img src="img/time.png"/>&nbsp;<b>'+res[i]["article_time"]+'</b></a>';
+                str += '<a href="#"><img src="img/shuqian.jpg"/>&nbsp;<b>' + res[i]["article_class"] + '</b></a>';
+                str += '<a href="#"><img src="img/time.png"/>&nbsp;<b>' + res[i]["article_time"] + '</b></a>';
                 str += '<a href="#"><img src="img/ping.png"/>&nbsp;<b>评论</b></a>';
-                str += '<a href="#"><img src="img/zan.png"/>&nbsp;  <b>'+res[i]["article_zan"]+'</b></a>';
+                str += '<a href="#"><img src="img/zan.png"/>&nbsp;  <b>' + res[i]["article_zan"] + '</b></a>';
                 str += '</i>';
                 str += '</div>';
                 $(".wenzang").append(str);
             }
-        });
+        })
 
-    })
+        $(".yema").on("click", "li", function () {
+            $(".wenzang").find(".wz").remove();
+            var num = $(this).text() - 1;
+            $.ajax({
+                url: "http://localhost:5656/changearcitle",
+                type: "post",
+                data: {
+                    num: num
+                }
+            }).then(function (res) {
+                for (var i = 0; i < res.length; i++) {
+                    var article = res[i]["article_content"].substr(0, 188)
+                    var str = '';
+                    str += '<div class="wz">';
+                    str += '<a href="index_article.html?a_id=' + res[i]["a_id"] + '"><h4>' + res[i]["article_title"] + '</h4></a>';
+                    str += article + '...';
+                    str += '<i>';
+                    str += '<a href="#"><img src="img/shuqian.jpg"/>&nbsp;<b>' + res[i]["article_class"] + '</b></a>';
+                    str += '<a href="#"><img src="img/time.png"/>&nbsp;<b>' + res[i]["article_time"] + '</b></a>';
+                    str += '<a href="#"><img src="img/ping.png"/>&nbsp;<b>评论</b></a>';
+                    str += '<a href="#"><img src="img/zan.png"/>&nbsp;  <b>' + res[i]["article_zan"] + '</b></a>';
+                    str += '</i>';
+                    str += '</div>';
+                    $(".wenzang").append(str);
+                }
+            });
+
+        })
     })
 </script>

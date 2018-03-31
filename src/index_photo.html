@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>LW的博客</title>
     <link rel="stylesheet" type="text/css" href="css/index_photo.css"/>
+
 </head>
 <body>
 <div class="main">
@@ -22,9 +23,10 @@
 <div class="main">
     <div class="content">
         <h2 class="title">照片墙<span></span></h2>
-        <div id="masonry" class="photo"></div>
+        <div id="masonry" class="photo">
+            <iframe src="./showimg.html" style="width: 100%;height: 900px;border: none;"></iframe>
+        </div>
     </div>
-
 
     <div class="aside">
         <h3>全部分类</h3>
@@ -55,8 +57,12 @@
             </ul>
         </div>
     </div>
+</div>
 
-
+<div class="main">
+    <div class="footer">
+        <span>欢迎来到LIULIU博客</span>
+    </div>
 </div>
 </body>
 </html>
@@ -73,42 +79,41 @@
                 $("body").css("background", 'url(' + res[0]["bg_url"] + ') no-repeat');
             })
 
-        var $container = $('#masonry');
-        $.ajax({
-            url: 'http://localhost:5656/getimages',
-            type: 'POST',
-            success: function (data) {
-                var str = JSON.parse(data);
-                console.log(str);
-                for (var i = 0; i < 33; i++) {
-                    var ID = str[i].id;
-                    if (str[i].u_class == 1) {
-                        var Div1 = $('<div class="box"></div>');
-                        var Div2 = $('<div class="del">哈哈哈</div>');
-                        var imgObj = $("<img class='imgId' id=" + ID + ">").attr("src", "img/bgimg/" + str[i].u_path);
-
-                        var oImg = $('.photo')
-                        Div2.appendTo(Div1)
-                        imgObj.appendTo(Div1)
-                        Div1.appendTo(oImg)
-                    }
-                }
-            }
-        }).then(function () {
-
-            $container.masonry({
-                columnWidth: 200,
-                itemSelector: '.box',
-                gutter: 8,
-                isAnimated: true,
-            });
-            $(document).on("mouseover", ".box", function () {
-                $(this).find("div").stop().show();
-            })
-            $(document).on("mouseout", ".box", function () {
-                $(this).find("div").stop().hide();
-            })
-        })
+//        var $container = $('#masonry');
+//        $.ajax({
+//            url: 'http://localhost:5656/getimages',
+//            type: 'POST',
+//            success: function (data) {
+//                var str = JSON.parse(data);
+//                console.log(str);s
+//                for (var i = 0; i < 25; i++) {
+//                    var ID = str[i].id;
+//                    if (str[i].u_class == 1) {
+//                        var Div1 = $('<div class="box"></div>');
+//                        var Div2 = $('<div class="del">哈哈哈</div>');
+//                        var imgObj = $("<img class='imgId' id=" + ID + ">").attr("src", "img/bgimg/" + str[i].u_path);
+//
+//                        var oImg = $('.photo')
+//                        Div2.appendTo(Div1)
+//                        imgObj.appendTo(Div1)
+//                        Div1.appendTo(oImg)
+//                    }
+//                }
+//            }
+//        }).then(function () {
+//            $container.masonry({
+//                columnWidth: 200,
+//                itemSelector: '.box',
+//                gutter: 8,
+//                isAnimated: true,
+//            });
+//            $(document).on("mouseover", ".box", function () {
+//                $(this).find("div").stop().show();
+//            })
+//            $(document).on("mouseout", ".box", function () {
+//                $(this).find("div").stop().hide();
+//            })
+//        })
 
     })
 
